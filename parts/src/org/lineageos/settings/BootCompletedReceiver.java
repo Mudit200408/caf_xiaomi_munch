@@ -15,20 +15,26 @@
  */
 
 package org.lineageos.settings;
-
+import android.os.IBinder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-
+import android.content.SharedPreferences;
+import android.os.SystemProperties;
+import androidx.preference.PreferenceManager;
+import org.lineageos.settings.utils.FileUtils;
 import org.lineageos.settings.dirac.DiracUtils;
 import org.lineageos.settings.thermal.ThermalUtils;
 import org.lineageos.settings.refreshrate.RefreshUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
+	   private static final String DC_DIMMING_ENABLE_KEY = "dc_dimming_enable";
+    private static final String DC_DIMMING_NODE = "/sys/devices/platform/soc/soc:qcom,dsi-display-primary/anti_flicker";
 
     @Override
     public void onReceive(final Context context, Intent intent) {
+    SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         if (!intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             return;
         }
@@ -41,5 +47,9 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
         // Per app refresh rate
         RefreshUtils.startService(context);
+        
+        final IBinder displayToken = 
+        boolean dcDimmingEnabled = sharedPrefs.getBoolean(DC_DIMMING_ENABLE_KEY, false);
+        FileUtils.writeLine(DC_DIMMING_NODE, dcDimmingEnabled ? "1" : "0"); 
     }
 }
