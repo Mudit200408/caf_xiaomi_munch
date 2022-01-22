@@ -321,6 +321,13 @@ PRODUCT_PACKAGES += \
     MunchWifiOverlay \
     NoCutoutOverlay
 
+# PocketMode
+PRODUCT_PACKAGES += \
+    PocketMode
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/pocket/privapp-permissions-pocketmode.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-pocketmode.xml
+
 # Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
