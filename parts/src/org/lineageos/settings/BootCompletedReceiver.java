@@ -48,6 +48,8 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         // Per app refresh rate
         RefreshUtils.startService(context);
         
+        FileUtils.enableService(context);
+        
         final IBinder displayToken = 
         boolean dcDimmingEnabled = sharedPrefs.getBoolean(DC_DIMMING_ENABLE_KEY, false);
         FileUtils.writeLine(DC_DIMMING_NODE, dcDimmingEnabled ? "1" : "0"); 
