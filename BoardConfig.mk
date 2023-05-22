@@ -40,6 +40,8 @@ TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a76
 
+TARGET_SYSTEM_PROP += $(DEVICE_PATH)/properties/system.prop
+
 # A/B
 AB_OTA_UPDATER := true
 AB_OTA_PARTITIONS := \
